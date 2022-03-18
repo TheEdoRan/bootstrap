@@ -4,11 +4,8 @@ const { readdir } = require("fs/promises");
 const { FILES_PATH } = require("./utils/const");
 const { execPrint } = require("./utils/execPrint");
 const { copy } = require("./utils/copy");
-const { getPackageManager } = require("./utils/packageManager");
 
 const main = async () => {
-	const pm = getPackageManager();
-
 	// TypeScript/project initialization
 	try {
 		execPrint("npx @theedoran/tsconfig --no-questions");
@@ -19,7 +16,7 @@ const main = async () => {
 
 	// ESLint
 	try {
-		execPrint(`${pm} i -D @theedoran/eslint-config`);
+		execPrint("npm i -D @theedoran/eslint-config");
 	} catch {
 		console.error("ERROR: could not install @theedoran/eslint-config");
 		process.exit(1);
@@ -28,7 +25,7 @@ const main = async () => {
 	// Husky
 	try {
 		execPrint("git init");
-		execPrint(`${pm} i -D husky`);
+		execPrint("npm i -D husky");
 		execPrint('npm set-script prepare "husky install"');
 		execPrint("npm run prepare");
 	} catch {
@@ -38,9 +35,9 @@ const main = async () => {
 
 	// Install additional packages
 	try {
-		execPrint(`${pm} i dotenv module-alias`);
+		execPrint("npm i dotenv module-alias");
 		execPrint(
-			`${pm} i -D @commitlint/cli @commitlint/config-conventional @types/module-alias lint-staged ts-node-dev`
+			"npm i -D @commitlint/cli @commitlint/config-conventional @types/module-alias lint-staged ts-node-dev"
 		);
 	} catch {
 		console.error("ERROR: could not install additional required packages.");

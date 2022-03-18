@@ -1,34 +1,31 @@
 {
-  "name": "@theedoran/bootstrap",
-  "version": "1.0.1",
-  "description": "This package creates a TypeScript project from scratch, providing all the tools and configuration files needed to start write some code in a sensible way",
-  "main": "index.js",
-  "bin": "index.js",
-  "keywords": [
-    "package.json",
-    "git",
-    "eslint",
-    "commitlint",
-    "lint-staged",
-    "typescript"
-  ],
-  "scripts": {
-    "start": "node ."
-  },
-  "author": "Edoardo Ranghieri (https://edoardo.ranghieri.com)",
-  "license": "MIT",
-  "homepage": "https://github.com/theedoran/bootstrap",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/theedoran/bootstrap.git"
-  },
-  "bugs": {
-    "url": "https://github.com/theedoran/bootstrap/issues"
-  },
-  "engines": {
-    "node": ">=16.7.0"
-  },
-  "dependencies": {
-    "which": "^2.0.2"
-  }
+	"name": "@theedoran/bootstrap",
+	"version": "1.0.1",
+	"description": "This package creates a TypeScript project from scratch, providing all the tools and configuration files needed to start write some code in a sensible way",
+	"main": "index.js",
+	"bin": "index.js",
+	"keywords": [
+		"package.json",
+		"git",
+		"eslint",
+		"commitlint",
+		"lint-staged",
+		"typescript"
+	],
+	"scripts": {
+		"start": "node ."
+	},
+	"author": "Edoardo Ranghieri (https://edoardo.ranghieri.com)",
+	"license": "MIT",
+	"homepage": "https://github.com/theedoran/bootstrap",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/theedoran/bootstrap.git"
+	},
+	"bugs": {
+		"url": "https://github.com/theedoran/bootstrap/issues"
+	},
+	"engines": {
+		"node": ">=16.7.0"
+	}
 }
