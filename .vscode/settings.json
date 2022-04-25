@@ -1,0 +1,6 @@
+{
+	"eslint.validate": [],
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": false
+	}
+}
