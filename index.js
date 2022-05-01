@@ -4,6 +4,7 @@ const { readdir } = require("fs/promises");
 const { FILES_PATH } = require("./utils/const");
 const { execPrint } = require("./utils/execPrint");
 const { copy } = require("./utils/copy");
+const { isNextProject } = require("./utils/isNextProject");
 
 const main = async () => {
 	// TypeScript/project initialization
@@ -16,9 +17,13 @@ const main = async () => {
 
 	// ESLint
 	try {
-		execPrint("npm i -D @theedoran/eslint-config");
+		if (isNextProject()) {
+			execPrint("npm i -D @theedoran/eslint-config-next");
+		} else {
+			execPrint("npm i -D @theedoran/eslint-config");
+		}
 	} catch {
-		console.error("ERROR: could not install @theedoran/eslint-config");
+		console.error("ERROR: could not install eslint configuration");
 		process.exit(1);
 	}
 
@@ -35,10 +40,14 @@ const main = async () => {
 
 	// Install additional packages
 	try {
-		execPrint("npm i dotenv module-alias");
 		execPrint(
-			"npm i -D @commitlint/cli @commitlint/config-conventional @types/module-alias lint-staged ts-node-dev"
+			"npm i -D @commitlint/cli @commitlint/config-conventional lint-staged"
 		);
+
+		if (!isNextProject()) {
+			execPrint("npm i dotenv module-alias");
+			execPrint("npm i -D @types/module-alias ts-node-dev");
+		}
 	} catch {
 		console.error("ERROR: could not install additional required packages.");
 		process.exit(1);
@@ -46,15 +55,22 @@ const main = async () => {
 
 	// Configure package.json scripts
 	try {
-		execPrint('npm set-script dev "ts-node-dev --rs ./src/index.ts"');
-		execPrint('npm set-script compile "tsc"');
 		execPrint('npm set-script commitlint "commitlint"');
 		execPrint('npm set-script lint-staged "lint-staged"');
 		execPrint('npm set-script typecheck "tsc --noemit"');
-		execPrint(
-			'npm set-script lint "npm run typecheck && eslint . --ext .js,.ts --no-cache"'
-		);
 		execPrint('npm set-script lint:fix "npm run lint -- --fix"');
+
+		if (!isNextProject()) {
+			execPrint('npm set-script dev "ts-node-dev --rs ./src/index.ts"');
+			execPrint('npm set-script compile "tsc"');
+			execPrint(
+				'npm set-script lint "npm run typecheck && eslint . --ext .js,.ts --no-cache"'
+			);
+		} else {
+			execPrint(
+				'npm set-script lint "npm run typecheck && eslint . --ext .js,.ts,.jsx,.tsx --no-cache"'
+			);
+		}
 	} catch {
 		console.error("ERROR: could not configure package.json scripts.");
 		process.exit(1);
@@ -62,7 +78,13 @@ const main = async () => {
 
 	// Copy config files
 	try {
-		const files = await readdir(FILES_PATH);
+		let files = await readdir(FILES_PATH);
+
+		if (isNextProject()) {
+			files += "/next";
+		} else {
+			files += "/node";
+		}
 
 		for (const file of files) {
 			const dest = file.replace(/^dot_(.+)/, ".$1");
