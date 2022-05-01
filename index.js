@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const { resolve } = require("path");
 const { readdir } = require("fs/promises");
 const { FILES_PATH } = require("./utils/const");
 const { execPrint } = require("./utils/execPrint");
@@ -18,6 +19,7 @@ const main = async () => {
 	// ESLint
 	try {
 		if (isNextProject()) {
+			execPrint("npm uninstall -D eslint eslint-config-next");
 			execPrint("npm i -D @theedoran/eslint-config-next");
 		} else {
 			execPrint("npm i -D @theedoran/eslint-config");
@@ -78,7 +80,14 @@ const main = async () => {
 
 	// Copy config files
 	try {
-		const dir = `${FILES_PATH}/${isNextProject() ? "next" : "node"}`;
+		let dir;
+
+		if (isNextProject()) {
+			dir = resolve(FILES_PATH, "next");
+		} else {
+			dir = resolve(FILES_PATH, "node");
+		}
+
 		const files = await readdir(dir);
 
 		for (const file of files) {
