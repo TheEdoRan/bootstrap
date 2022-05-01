@@ -78,7 +78,7 @@ const main = async () => {
 
 	// Copy config files
 	try {
-		let dir = `${FILES_PATH}/${isNextProject() ? "next" : node}`;
+		const dir = `${FILES_PATH}/${isNextProject() ? "next" : "node"}`;
 		const files = await readdir(dir);
 
 		for (const file of files) {
