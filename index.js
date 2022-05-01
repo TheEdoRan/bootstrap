@@ -80,15 +80,7 @@ const main = async () => {
 
 	// Copy config files
 	try {
-		let dir;
-
-		if (isNextProject()) {
-			dir = resolve(FILES_PATH, "next");
-		} else {
-			dir = resolve(FILES_PATH, "node");
-		}
-
-		const files = await readdir(dir);
+		const files = await readdir(FILES_PATH);
 
 		for (const file of files) {
 			const dest = file.replace(/^dot_(.+)/, ".$1");
