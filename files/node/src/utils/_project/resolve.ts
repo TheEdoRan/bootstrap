@@ -1,5 +1,5 @@
-import { resolve } from "path";
+import { join } from "path";
 
 import moduleAlias from "module-alias";
 
-moduleAlias.addAlias("~", resolve(__dirname, ".."));
+moduleAlias.addAlias("~", join(__dirname, "..", ".."));
