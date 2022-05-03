@@ -42,13 +42,11 @@ const main = async () => {
 
 	// Install additional packages
 	try {
-		execPrint(
-			"npm i -D @commitlint/cli @commitlint/config-conventional lint-staged"
-		);
+		execPrint("npm i -D @commitlint/cli @commitlint/config-conventional lint-staged");
 
 		if (!isNextProject()) {
 			execPrint("npm i dotenv module-alias");
-			execPrint("npm i -D @types/module-alias ts-node-dev");
+			execPrint("npm i -D @types/module-alias ts-node nodemon");
 		}
 	} catch {
 		console.error("ERROR: could not install additional required packages.");
@@ -63,15 +61,11 @@ const main = async () => {
 		execPrint('npm set-script lint:fix "npm run lint -- --fix"');
 
 		if (!isNextProject()) {
-			execPrint('npm set-script dev "ts-node-dev --rs ./src/index.ts"');
+			execPrint("npm set-script dev \"nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'\"");
 			execPrint('npm set-script compile "tsc"');
-			execPrint(
-				'npm set-script lint "npm run typecheck && eslint . --ext .js,.ts --no-cache"'
-			);
+			execPrint('npm set-script lint "npm run typecheck && eslint . --ext .js,.ts --no-cache"');
 		} else {
-			execPrint(
-				'npm set-script lint "npm run typecheck && eslint . --ext .js,.ts,.jsx,.tsx --no-cache"'
-			);
+			execPrint('npm set-script lint "npm run typecheck && eslint . --ext .js,.ts,.jsx,.tsx --no-cache"');
 		}
 	} catch {
 		console.error("ERROR: could not configure package.json scripts.");
@@ -92,9 +86,7 @@ const main = async () => {
 			}
 		}
 	} catch (e) {
-		console.error(
-			"ERROR: could not copy files to project directory. Details below:"
-		);
+		console.error("ERROR: could not copy files to project directory. Details below:");
 		console.error(e);
 		process.exit(1);
 	}

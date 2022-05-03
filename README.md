@@ -19,10 +19,10 @@ This script executes other scripts and copies various configurations, in order:
 - It executes [@theedoran/tsconfig](https://github.com/theedoran/tsconfig);
 - It installs [@theedoran/eslint-config](https://github.com/theedoran/eslint-config);
 - It installs and configures [Husky](https://github.com/typicode/husky);
-- It installs [dotenv](https://github.com/motdotla/dotenv), [module-alias](https://github.com/ilearnio/module-alias) as `dependencies` and [@commitlint/cli](https://github.com/conventional-changelog/commitlint), [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint), [lint-staged](https://github.com/okonet/lint-staged), [@types/module-alias](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/module-alias), [ts-node-dev](https://github.com/wclr/ts-node-dev) as `devDependencies`;
+- It installs [dotenv](https://github.com/motdotla/dotenv), [module-alias](https://github.com/ilearnio/module-alias) as `dependencies` and [@commitlint/cli](https://github.com/conventional-changelog/commitlint), [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint), [lint-staged](https://github.com/okonet/lint-staged), [@types/module-alias](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/module-alias), [ts-node](https://github.com/TypeStrong/ts-node), [nodemon](https://github.com/remy/nodemon) as `devDependencies`;
 - It configures various `scripts` in `packages.json`, such as:
 
-  - `dev` -> `ts-node-dev`;
+  - `dev` -> `nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'`;
   - `compile` -> `tsc`;
   - `commitlint`;
   - `lint-staged`;
