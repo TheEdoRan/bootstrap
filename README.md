@@ -2,6 +2,20 @@
 
 > This package creates a `TypeScript` project from scratch, providing all the tools and configuration files needed to start write some code in a sensible way.
 
+## ‼️ Next.js support
+
+This package works for Next.js too! Just init a new project with:
+
+```bash
+npx create-next-app@latest --ts --use-npm
+```
+
+And then execute the command below.
+
+**Documentation for Next.js support is still WIP**.
+
+---
+
 ## Usage
 
 Execute this command in a new (empty) directory:
