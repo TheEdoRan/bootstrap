@@ -21,7 +21,7 @@ And then execute the command below.
 Execute this command in a new (empty) directory:
 
 ```bash
-npx @theedoran/bootstrap
+npx @theedoran/bootstrap@latest
 ```
 
 _Done!_
