@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const { resolve } = require("path");
 const { readdir } = require("fs/promises");
 const { FILES_PATH } = require("./utils/const");
 const { execPrint } = require("./utils/execPrint");
@@ -33,7 +32,7 @@ const main = async () => {
 	try {
 		execPrint("git init");
 		execPrint("npm i -D husky");
-		execPrint('npm set-script prepare "husky install"');
+		execPrint('npm pkg set scripts.prepare="husky install"');
 		execPrint("npm run prepare");
 	} catch {
 		console.error("ERROR: could not initialize git repo or Husky");
@@ -55,17 +54,9 @@ const main = async () => {
 
 	// Configure package.json scripts
 	try {
-		execPrint('npm set-script commitlint "commitlint"');
-		execPrint('npm set-script lint-staged "lint-staged"');
-		execPrint('npm set-script typecheck "tsc --noemit"');
-		execPrint('npm set-script lint:fix "npm run lint -- --fix"');
-
 		if (!isNextProject()) {
-			execPrint("npm set-script dev \"nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'\"");
-			execPrint('npm set-script compile "tsc"');
-			execPrint('npm set-script lint "npm run typecheck && eslint . --ext .js,.ts --no-cache"');
-		} else {
-			execPrint('npm set-script lint "npm run typecheck && eslint . --ext .js,.ts,.jsx,.tsx --no-cache"');
+			execPrint(`npm pkg set scripts.dev="nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'"`);
+			execPrint('npm pkg set scripts.build="tsc"');
 		}
 	} catch {
 		console.error("ERROR: could not configure package.json scripts.");
