@@ -1,12 +1,21 @@
 #!/usr/bin/env node
 
 const { readdir } = require("fs/promises");
+const { execSync } = require("child_process");
 const { FILES_PATH } = require("./utils/const");
 const { execPrint } = require("./utils/execPrint");
 const { copy } = require("./utils/copy");
 const { isNextProject } = require("./utils/isNextProject");
 
 const main = async () => {
+	// Check if we're in a Node project.
+	try {
+		execSync("ls package.json");
+	} catch {
+		console.error("ERROR: not in a Node project; move into a directory with a package.json");
+		process.exit(1);
+	}
+
 	// TypeScript/project initialization
 	try {
 		execPrint("npx @theedoran/tsconfig --no-questions");
