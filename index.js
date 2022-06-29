@@ -63,6 +63,16 @@ const main = async () => {
 		process.exit(1);
 	}
 
+	// Configure Next project.
+	try {
+		execPrint("rm -rf pages styles");
+
+		// Install Tailwind.
+		execPrint("npm i -D tailwindcss postcss autoprefixer");
+	} catch {
+		console.error("ERROR: could not configure Next project.");
+	}
+
 	// Copy config files
 	try {
 		const files = await readdir(FILES_PATH);
