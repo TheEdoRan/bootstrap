@@ -1,1 +1,1 @@
-import "./config/resolve";
+import "./_project/resolve";
