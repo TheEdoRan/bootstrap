@@ -2,7 +2,7 @@
 
 > This package creates a `TypeScript` project from scratch, providing all the tools and configuration files needed to start write some code in a sensible way.
 
-## ‼️ Next.js support
+## Next.js support
 
 This package works for Next.js too! Just init a new project with:
 
@@ -10,11 +10,7 @@ This package works for Next.js too! Just init a new project with:
 npx create-next-app@latest --ts --use-npm
 ```
 
-And then execute the command below.
-
-**Documentation for Next.js support is still WIP**.
-
----
+...and then execute the command below.
 
 ## Usage
 
@@ -30,23 +26,26 @@ _Done!_
 
 This script executes other scripts and copies various configurations, in order:
 
-- It executes [@theedoran/tsconfig](https://github.com/theedoran/tsconfig);
-- It installs [@theedoran/eslint-config](https://github.com/theedoran/eslint-config);
 - It installs and configures [Husky](https://github.com/typicode/husky);
-- It installs [dotenv](https://github.com/motdotla/dotenv), [module-alias](https://github.com/ilearnio/module-alias) as `dependencies` and [@commitlint/cli](https://github.com/conventional-changelog/commitlint), [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint), [lint-staged](https://github.com/okonet/lint-staged), [@types/module-alias](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/module-alias), [ts-node](https://github.com/TypeStrong/ts-node), [nodemon](https://github.com/remy/nodemon) as `devDependencies`;
-- It configures these two `scripts` in `packages.json`:
+- It installs:
 
-  - `dev` -> `nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'`;
-  - `build` -> `tsc`;
+  - Both envs: [typescript](https://github.com/microsoft/TypeScript), [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped), [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier), [@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser), [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin), [prettier](https://github.com/prettier/prettier) as `devDependencies`
+  - Node only: [eslint](https://github.com/eslint/eslint), [dotenv](https://github.com/motdotla/dotenv), [module-alias](https://github.com/ilearnio/module-alias) as `dependencies` and [@types/module-alias](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/module-alias), [ts-node](https://github.com/TypeStrong/ts-node), [nodemon](https://github.com/remy/nodemon) as `devDependencies`
+  - Next.js only: [@types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react), [@types/react-dom](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-dom), [eslint-config-next](https://github.com/vercel/next.js/tree/canary/packages/eslint-config-next), [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) as `devDependencies`
+
+- It configures these two `scripts` in `packages.json` (Node only):
+
+  - `dev` -> `nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'`
+  - `build` -> `tsc`
 
 - It copies all the [configuration files](https://github.com/theedoran/bootstrap/tree/main/files), for:
-  - `Visual Studio Code`;
-  - `Husky`;
-  - `commitlint`;
-  - `ESLint`;
-  - `lint-staged`;
-  - env vars (`.env.example`);
-  - an `src` skeleton.
+  - `Visual Studio Code`
+  - `TypeScript`
+  - `Husky`
+  - `Prettier`
+  - `ESLint`
+  - env vars (`.env.example`)
+  - an `src` skeleton
 
 ## License
 

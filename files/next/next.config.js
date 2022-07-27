@@ -4,15 +4,10 @@ const nextConfig = {
 		ignoreDuringBuilds: true,
 	},
 	reactStrictMode: true,
-	typescript: {
-		ignoreBuildErrors: true,
-	},
+	output: "standalone",
 	experimental: {
-		outputStandalone: true,
+		newNextLinkBehavior: true,
 	},
-	swcMinify: true,
 };
-
-// ESLint/TS errors are ignored during builds, since checks are already performed during pre-commits.
 
 module.exports = nextConfig;

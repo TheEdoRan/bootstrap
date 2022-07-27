@@ -45,8 +45,5 @@ yarn.lock
 # Sentry
 .sentryclirc
 
-# ESLint
-.eslintcache
-
 # TypeScript stuff
-tsconfig.tsbuildinfo
+*.tsbuildinfo

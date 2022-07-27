@@ -11,47 +11,19 @@ const main = async () => {
 	try {
 		execPrint("ls package.json &>/dev/null");
 	} catch {
-		console.error("ERROR: not in a Node project; move into a directory with a package.json");
+		console.error(
+			"ERROR: not in a Node project; move into a directory with a package.json"
+		);
 		process.exit(1);
 	}
 
-	// TypeScript/project initialization
+	// Install packages
 	try {
-		execPrint("npx @theedoran/tsconfig --no-questions");
-	} catch {
-		console.error("ERROR: could not execute @theedoran/tsconfig");
-		process.exit(1);
-	}
+		execPrint("npm i -D typescript @types/node");
 
-	// ESLint
-	try {
 		if (isNextProject()) {
-			execPrint("npm uninstall -D eslint eslint-config-next");
-			execPrint("npm i -D @theedoran/eslint-config-next");
+			execPrint("npm i -D @types/react @types/react-dom");
 		} else {
-			execPrint("npm i -D @theedoran/eslint-config");
-		}
-	} catch {
-		console.error("ERROR: could not install eslint configuration");
-		process.exit(1);
-	}
-
-	// Husky
-	try {
-		execPrint("git init");
-		execPrint("npm i -D husky");
-		execPrint('npm pkg set scripts.prepare="husky install"');
-		execPrint("npm run prepare");
-	} catch {
-		console.error("ERROR: could not initialize git repo or Husky");
-		process.exit(1);
-	}
-
-	// Install additional packages
-	try {
-		execPrint("npm i -D @commitlint/cli @commitlint/config-conventional lint-staged");
-
-		if (!isNextProject()) {
 			execPrint("npm i dotenv module-alias");
 			execPrint("npm i -D @types/module-alias ts-node nodemon");
 		}
@@ -60,11 +32,42 @@ const main = async () => {
 		process.exit(1);
 	}
 
+	// Husky
+	try {
+		execPrint("git init");
+		execPrint("npm i is-ci");
+		execPrint("npm i -D husky");
+		execPrint('npm pkg set scripts.prepare="is-ci || husky install"');
+		execPrint("npm run prepare");
+	} catch {
+		console.error("ERROR: could not initialize git repo or Husky");
+		process.exit(1);
+	}
+
+	// ESLint
+	try {
+		execPrint(
+			"npm i -D eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier"
+		);
+
+		if (isNextProject()) {
+			execPrint("npm i -D eslint-config-next prettier-plugin-tailwindcss");
+		} else {
+			execPrint("npm i -D eslint");
+		}
+	} catch {
+		console.error("ERROR: could not install eslint configuration");
+		process.exit(1);
+	}
+
 	// Configure package.json scripts
 	try {
 		if (!isNextProject()) {
-			execPrint(`npm pkg set scripts.dev="nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'"`);
+			execPrint(
+				`npm pkg set scripts.dev="nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'"`
+			);
 			execPrint('npm pkg set scripts.build="tsc"');
+			execPrint(`npm pkg set scripts.lint="npx eslint ."`);
 		}
 	} catch {
 		console.error("ERROR: could not configure package.json scripts.");
@@ -95,7 +98,9 @@ const main = async () => {
 			}
 		}
 	} catch (e) {
-		console.error("ERROR: could not copy files to project directory. Details below:");
+		console.error(
+			"ERROR: could not copy files to project directory. Details below:"
+		);
 		console.error(e);
 		process.exit(1);
 	}
