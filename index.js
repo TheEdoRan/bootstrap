@@ -47,13 +47,11 @@ const main = async () => {
 	// ESLint
 	try {
 		execPrint(
-			"npm i -D eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier"
+			"npm i -D eslint eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier"
 		);
 
 		if (isNextProject()) {
 			execPrint("npm i -D eslint-config-next prettier-plugin-tailwindcss");
-		} else {
-			execPrint("npm i -D eslint");
 		}
 	} catch {
 		console.error("ERROR: could not install eslint configuration");
@@ -82,6 +80,7 @@ const main = async () => {
 		execPrint("npm i -D tailwindcss postcss autoprefixer");
 	} catch {
 		console.error("ERROR: could not configure Next project.");
+		process.exit(1);
 	}
 
 	// Copy config files
@@ -104,6 +103,8 @@ const main = async () => {
 		console.error(e);
 		process.exit(1);
 	}
+
+	console.log("\nDone!");
 };
 
 main().catch(console.error);
