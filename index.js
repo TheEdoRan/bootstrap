@@ -75,14 +75,16 @@ const main = async () => {
 	}
 
 	// Configure Next project.
-	try {
-		execPrint("rm -rf pages styles");
+	if (isNextProject()) {
+		try {
+			execPrint("rm -rf pages styles");
 
-		// Install Tailwind.
-		execPrint("npm i -D tailwindcss postcss autoprefixer");
-	} catch {
-		console.error("ERROR: could not configure Next project.");
-		process.exit(1);
+			// Install Tailwind.
+			execPrint("npm i -D tailwindcss postcss autoprefixer");
+		} catch {
+			console.error("ERROR: could not configure Next project.");
+			process.exit(1);
+		}
 	}
 
 	// Copy config files
