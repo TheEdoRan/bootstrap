@@ -19,7 +19,9 @@ const main = async () => {
 
 	// Install packages
 	try {
-		execPrint("npm i -D typescript @types/node");
+		execPrint(
+			"npm i -D typescript @types/node @commitlint/cli @commitlint/config-conventional"
+		);
 
 		if (isNextProject()) {
 			execPrint("npm i -D @types/react @types/react-dom");
@@ -28,7 +30,7 @@ const main = async () => {
 			execPrint("npm i -D @types/module-alias ts-node nodemon");
 		}
 	} catch {
-		console.error("ERROR: could not install additional required packages.");
+		console.error("ERROR: could not install required packages.");
 		process.exit(1);
 	}
 
