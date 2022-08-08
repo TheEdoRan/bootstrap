@@ -10,11 +10,17 @@ This package works for Next.js too! Just init a new project with:
 npx create-next-app@latest --ts --use-npm
 ```
 
-...and then execute the command below.
+...and then execute the install command below.
 
 ## Usage
 
-Execute this command in a new (empty) directory:
+Init a new Node project if you haven't already done so (no need to do it for Next.js):
+
+```bash
+npm init -y
+```
+
+Then `cd` in the new directory, and execute this command:
 
 ```bash
 npx @theedoran/bootstrap@latest
