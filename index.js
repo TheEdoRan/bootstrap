@@ -7,7 +7,7 @@ const { copy } = require("./utils/copy");
 const { isNextProject } = require("./utils/isNextProject");
 
 const main = async () => {
-	// Check if we're in a Node project.
+	// Check if we're in a Node project
 	try {
 		execPrint("ls package.json &>/dev/null");
 	} catch {
@@ -31,6 +31,16 @@ const main = async () => {
 		}
 	} catch {
 		console.error("ERROR: could not install required packages.");
+		process.exit(1);
+	}
+
+	// Install and configure Commitizen locally
+	try {
+		execPrint(
+			"npx --yes commitizen init cz-conventional-changelog --save-dev --force"
+		);
+	} catch {
+		console.error("ERROR: could not install and configure Commitizen.");
 		process.exit(1);
 	}
 
@@ -74,12 +84,12 @@ const main = async () => {
 		process.exit(1);
 	}
 
-	// Configure Next project.
+	// Configure Next project
 	if (isNextProject()) {
 		try {
 			execPrint("rm -rf pages styles");
 
-			// Install Tailwind.
+			// Install Tailwind
 			execPrint("npm i -D tailwindcss postcss autoprefixer");
 		} catch {
 			console.error("ERROR: could not configure Next project.");
