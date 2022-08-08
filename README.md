@@ -33,6 +33,8 @@ This script executes other scripts and copies various configurations, in order:
   - Node only: [dotenv](https://github.com/motdotla/dotenv), [module-alias](https://github.com/ilearnio/module-alias) as `dependencies` and [@types/module-alias](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/module-alias), [ts-node](https://github.com/TypeStrong/ts-node), [nodemon](https://github.com/remy/nodemon) as `devDependencies`
   - Next.js only: [@types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react), [@types/react-dom](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-dom), [eslint-config-next](https://github.com/vercel/next.js/tree/canary/packages/eslint-config-next), [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) as `devDependencies`
 
+- It installs and configures [Commitizen](https://github.com/commitizen/cz-cli) with the [cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog) adapter;
+
 - It configures these two `scripts` in `packages.json` (Node only):
 
   - `dev` -> `nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'`
