@@ -1,13 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	eslint: {
-		ignoreDuringBuilds: true,
-	},
 	reactStrictMode: true,
-	output: "standalone",
-	experimental: {
-		newNextLinkBehavior: true,
-	},
+	swcMinify: true,
 };
 
 module.exports = nextConfig;
