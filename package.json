@@ -8,8 +8,6 @@
 		"package.json",
 		"git",
 		"eslint",
-		"commitlint",
-		"lint-staged",
 		"typescript"
 	],
 	"scripts": {
