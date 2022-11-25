@@ -7,7 +7,7 @@
 This package works for Next.js too! Just init a new project with:
 
 ```bash
-npx create-next-app@latest --ts
+npx create-next-app@latest --ts --use-npm
 ```
 
 ...and then execute the install command below.
@@ -35,9 +35,11 @@ This script executes other scripts and copies various configurations, in order:
 - It installs and configures [Husky](https://github.com/typicode/husky);
 - It installs:
 
-  - Both envs: [typescript](https://github.com/microsoft/TypeScript), [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped), [eslint](https://github.com/eslint/eslint), [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier), [@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser), [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin), [prettier](https://github.com/prettier/prettier) as `devDependencies`
+  - Both envs: [typescript](https://github.com/microsoft/TypeScript), [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped), [@commitlint/cli](https://github.com/conventional-changelog/commitlint), [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint), [eslint](https://github.com/eslint/eslint), [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier), [@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser), [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin), [prettier](https://github.com/prettier/prettier) as `devDependencies`
   - Node only: [dotenv](https://github.com/motdotla/dotenv), [module-alias](https://github.com/ilearnio/module-alias) as `dependencies` and [@types/module-alias](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/module-alias), [ts-node](https://github.com/TypeStrong/ts-node), [nodemon](https://github.com/remy/nodemon) as `devDependencies`
   - Next.js only: [@types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react), [@types/react-dom](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-dom), [eslint-config-next](https://github.com/vercel/next.js/tree/canary/packages/eslint-config-next), [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) as `devDependencies`
+
+- It installs and configures [Commitizen](https://github.com/commitizen/cz-cli) with the [cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog) adapter;
 
 - It configures these two `scripts` in `packages.json` (Node only):
 
@@ -50,6 +52,7 @@ This script executes other scripts and copies various configurations, in order:
   - `Husky`
   - `Prettier`
   - `ESLint`
+  - `Commitlint`
   - env vars (`.env.example`)
   - an `src` skeleton
 

@@ -19,7 +19,9 @@ const main = async () => {
 
 	// Install packages
 	try {
-		execPrint("npm i -D typescript @types/node");
+		execPrint(
+			"npm i -D typescript @types/node @commitlint/cli @commitlint/config-conventional"
+		);
 
 		if (isNextProject()) {
 			execPrint("npm i -D @types/react @types/react-dom");
@@ -29,6 +31,16 @@ const main = async () => {
 		}
 	} catch {
 		console.error("ERROR: could not install required packages.");
+		process.exit(1);
+	}
+
+	// Install and configure Commitizen locally
+	try {
+		execPrint(
+			"npx --yes commitizen init cz-conventional-changelog --save-dev --force"
+		);
+	} catch {
+		console.error("ERROR: could not install and configure Commitizen.");
 		process.exit(1);
 	}
 

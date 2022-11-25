@@ -8,6 +8,7 @@
 		"package.json",
 		"git",
 		"eslint",
+		"commitlint",
 		"typescript"
 	],
 	"scripts": {
