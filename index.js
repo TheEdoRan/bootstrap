@@ -24,7 +24,7 @@ const main = async () => {
 		);
 
 		if (isNextProject()) {
-			execPrint("npm i -D @types/react @types/react-dom");
+			execPrint("npm i -D @types/react @types/react-dom @next/font");
 		} else {
 			execPrint("npm i dotenv module-alias");
 			execPrint("npm i -D @types/module-alias ts-node nodemon");
@@ -77,7 +77,9 @@ const main = async () => {
 				`npm pkg set scripts.dev="nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'"`
 			);
 			execPrint('npm pkg set scripts.build="tsc"');
-			execPrint(`npm pkg set scripts.lint="npx eslint ."`);
+			execPrint(
+				`npm pkg set scripts.lint="npx eslint --ext js,jsx,ts,tsx --fix ."`
+			);
 		}
 	} catch {
 		console.error("ERROR: could not configure package.json scripts.");
