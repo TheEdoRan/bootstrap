@@ -1,3 +1,0 @@
-{
-	"*.ts": ["tsc --noEmit", "eslint . --no-cache --fix"]
-}
