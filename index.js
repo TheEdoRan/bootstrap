@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const { execSync } = require("child_process");
 const { readdir } = require("fs/promises");
 const { FILES_PATH } = require("./utils/const");
 const { execPrint } = require("./utils/execPrint");
@@ -9,10 +10,11 @@ const { isNextProject } = require("./utils/isNextProject");
 const main = async () => {
 	// Check if we're in a Node project
 	try {
-		execPrint("ls package.json &>/dev/null");
+		execSync("ls package.json");
+		console.log("Node.js project found!");
 	} catch {
 		console.error(
-			"ERROR: not in a Node project; move into a directory with a package.json"
+			"ERROR: not in a Node.js project; move into a directory with a package.json"
 		);
 		process.exit(1);
 	}
@@ -59,7 +61,7 @@ const main = async () => {
 	// ESLint
 	try {
 		execPrint(
-			"npm i -D eslint eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier"
+			"npm i -D lint-staged eslint eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier"
 		);
 
 		if (isNextProject()) {
@@ -77,9 +79,7 @@ const main = async () => {
 				`npm pkg set scripts.dev="nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'"`
 			);
 			execPrint('npm pkg set scripts.build="tsc"');
-			execPrint(
-				`npm pkg set scripts.lint="npx eslint --ext js,jsx,ts,tsx --fix ."`
-			);
+			execPrint(`npm pkg set scripts.lint="npx eslint --ext ts,tsx --fix ."`);
 		}
 	} catch {
 		console.error("ERROR: could not configure package.json scripts.");
