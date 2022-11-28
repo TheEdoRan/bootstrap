@@ -1,6 +1,6 @@
 # [@theedoran/bootstrap](https://github.com/theedoran/bootstrap)
 
-> This package creates a `TypeScript` project from scratch, providing all the tools and configuration files needed to start write some code in a sensible way.
+> This package sets up a TypeScript project from scratch, providing all the tools and configuration files needed to start write some code in a sensible way.
 
 ## Next.js support
 
