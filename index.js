@@ -8,10 +8,19 @@ const { copy } = require("./utils/copy");
 const { isNextProject } = require("./utils/isNextProject");
 
 const main = async () => {
+	let nextProject = null;
+
 	// Check if we're in a Node project
 	try {
 		execSync("ls package.json");
-		console.log("Node.js project found!");
+
+		nextProject = isNextProject();
+
+		if (nextProject) {
+			console.log("Next.js project found!");
+		} else {
+			console.log("Node.js project found!");
+		}
 	} catch {
 		console.error(
 			"ERROR: not in a Node.js project; move into a directory with a package.json"
@@ -25,7 +34,7 @@ const main = async () => {
 			"npm i -D typescript @types/node @commitlint/cli @commitlint/config-conventional"
 		);
 
-		if (isNextProject()) {
+		if (nextProject) {
 			execPrint("npm i -D @types/react @types/react-dom @next/font");
 		} else {
 			execPrint("npm i dotenv module-alias");
@@ -64,7 +73,7 @@ const main = async () => {
 			"npm i -D lint-staged eslint eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier"
 		);
 
-		if (isNextProject()) {
+		if (nextProject) {
 			execPrint("npm i -D eslint-config-next prettier-plugin-tailwindcss");
 		}
 	} catch {
@@ -74,12 +83,12 @@ const main = async () => {
 
 	// Configure package.json scripts
 	try {
-		if (!isNextProject()) {
+		if (!nextProject) {
 			execPrint(
 				`npm pkg set scripts.dev="nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'"`
 			);
 			execPrint('npm pkg set scripts.build="tsc"');
-			execPrint(`npm pkg set scripts.lint="npx eslint --ext ts,tsx --fix ."`);
+			execPrint(`npm pkg set scripts.lint="eslint --ext ts,tsx --fix ."`);
 		}
 	} catch {
 		console.error("ERROR: could not configure package.json scripts.");
@@ -87,7 +96,7 @@ const main = async () => {
 	}
 
 	// Configure Next project
-	if (isNextProject()) {
+	if (nextProject) {
 		try {
 			execPrint("rm -rf pages styles");
 
