@@ -88,7 +88,7 @@ const main = async () => {
 				`npm pkg set scripts.dev="nodemon --watch 'src/**' --ext 'js,ts,json' --exec 'ts-node src/index.ts'"`
 			);
 			execPrint('npm pkg set scripts.build="tsc"');
-			execPrint(`npm pkg set scripts.lint="eslint --ext ts,tsx --fix ."`);
+			execPrint(`npm pkg set scripts.lint="eslint --ext ts --fix ."`);
 		}
 	} catch {
 		console.error("ERROR: could not configure package.json scripts.");
