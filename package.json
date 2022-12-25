@@ -1,6 +1,6 @@
 {
 	"name": "@theedoran/bootstrap",
-	"version": "4.4.0",
+	"version": "4.4.1",
 	"description": "This package creates a TypeScript project from scratch, providing all the tools and configuration files needed to start write some code in a sensible way",
 	"main": "index.js",
 	"bin": "index.js",
