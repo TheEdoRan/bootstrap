@@ -6,6 +6,7 @@ const { FILES_PATH } = require("./utils/const");
 const { execPrint } = require("./utils/execPrint");
 const { copy } = require("./utils/copy");
 const { isNextProject } = require("./utils/isNextProject");
+const yesno = require("yesno");
 
 const main = async () => {
 	let nextProject = null;
@@ -28,11 +29,14 @@ const main = async () => {
 		process.exit(1);
 	}
 
+	// Conventional Commits prompt
+	const useConventionalCommits = await yesno({
+		question: "Do you want to use Conventional Commits?",
+	});
+
 	// Install packages
 	try {
-		execPrint(
-			"npm i -D typescript @types/node @commitlint/cli @commitlint/config-conventional"
-		);
+		execPrint("npm i -D typescript @types/node");
 
 		if (nextProject) {
 			execPrint("npm i -D @types/react @types/react-dom @next/font");
@@ -45,14 +49,19 @@ const main = async () => {
 		process.exit(1);
 	}
 
-	// Install and configure Commitizen locally
-	try {
-		execPrint(
-			"npx --yes commitizen init cz-conventional-changelog --save-dev --force"
-		);
-	} catch {
-		console.error("ERROR: could not install and configure Commitizen.");
-		process.exit(1);
+	// Install and configure Commitizen locally, if needed.
+	if (useConventionalCommits) {
+		try {
+			execPrint("npm i -D @commitlint/cli @commitlint/config-conventional");
+			execPrint(
+				"npx --yes commitizen init cz-conventional-changelog --save-dev --force"
+			);
+		} catch {
+			console.error(
+				"ERROR: could not install and configure Conventional Commits."
+			);
+			process.exit(1);
+		}
 	}
 
 	// Husky
@@ -116,7 +125,13 @@ const main = async () => {
 			const dest = file.replace(/^dot_(.+)/, ".$1");
 
 			try {
-				await copy(file, dest);
+				// vero &&
+				if (file === "commitlint.config.js" && !useConventionalCommits) {
+					// Skip copy if file is Commitlint config and user has chosen to
+					// setup the project without Conventional Commmits.
+				} else {
+					await copy(file, dest);
+				}
 			} catch (e) {
 				console.error(`ERROR: could not copy ${file}: ${e}`);
 			}
