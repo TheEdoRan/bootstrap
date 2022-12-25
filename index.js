@@ -125,7 +125,6 @@ const main = async () => {
 			const dest = file.replace(/^dot_(.+)/, ".$1");
 
 			try {
-				// vero &&
 				if (file === "commitlint.config.js" && !useConventionalCommits) {
 					// Skip copy if file is Commitlint config and user has chosen to
 					// setup the project without Conventional Commmits.
