@@ -6,7 +6,7 @@ const { FILES_PATH } = require("./utils/const");
 const { execPrint } = require("./utils/execPrint");
 const { copy } = require("./utils/copy");
 const { isNextProject } = require("./utils/isNextProject");
-const yesno = require("yesno");
+const prompts = require("prompts");
 
 const main = async () => {
 	let nextProject = null;
@@ -30,8 +30,13 @@ const main = async () => {
 	}
 
 	// Conventional Commits prompt
-	const useConventionalCommits = await yesno({
-		question: "Do you want to use Conventional Commits?",
+	const { conventionalCommits: useConventionalCommits } = await prompts({
+		type: "toggle",
+		name: "conventionalCommits",
+		message: "Would you like to setup Conventional Commits for this project?",
+		initial: false,
+		active: "Yes",
+		inactive: "No",
 	});
 
 	// Install packages
