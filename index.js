@@ -129,10 +129,15 @@ const main = async () => {
 		for (const file of files) {
 			const dest = file.replace(/^dot_(.+)/, ".$1");
 
+			const isConventionalCommitFile =
+				file === "prepare-commit-msg" ||
+				file === "commit-msg" ||
+				file === "commitlint.config.js";
+
 			try {
-				if (file === "commitlint.config.js" && !useConventionalCommits) {
-					// Skip copy if file is Commitlint config and user has chosen to
-					// setup the project without Conventional Commmits.
+				if (isConventionalCommitFile && !useConventionalCommits) {
+					// Skip copy if file is Conventional Commits related and user
+					// chose to setup the project without CC.
 				} else {
 					await copy(file, dest);
 				}
