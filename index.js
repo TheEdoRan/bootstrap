@@ -75,7 +75,23 @@ const main = async () => {
 		execPrint("npm i is-ci");
 		execPrint("npm i -D husky");
 		execPrint('npm pkg set scripts.prepare="is-ci || husky install"');
-		execPrint("npm run prepare");
+		execPrint("npx husky install");
+
+		// Hooks
+		execPrint("npx husky add .husky/pre-commit 'npx lint-staged --no-stash'");
+
+		// Only if user chose to use Conventional Commits
+		if (useConventionalCommits) {
+			execPrint(
+				"npx husky add .husky/commit-msg 'npx commitlint --edit \"${1}\"'"
+			);
+			execPrint(
+				"npx husky add .husky/prepare-commit-msg 'exec < /dev/tty && npx cz --hook || true'"
+			);
+		}
+
+		// Reinstall hooks
+		execPrint("npx husky install");
 	} catch {
 		console.error("ERROR: could not initialize git repo or Husky");
 		process.exit(1);
@@ -129,15 +145,10 @@ const main = async () => {
 		for (const file of files) {
 			const dest = file.replace(/^dot_(.+)/, ".$1");
 
-			const isConventionalCommitFile =
-				file === "prepare-commit-msg" ||
-				file === "commit-msg" ||
-				file === "commitlint.config.js";
-
 			try {
-				if (isConventionalCommitFile && !useConventionalCommits) {
-					// Skip copy if file is Conventional Commits related and user
-					// chose to setup the project without CC.
+				if (file === "commitlint.config.js" && !useConventionalCommits) {
+					// Skip copy if file is Commitlint config and user chose
+					// to setup the project without CC.
 				} else {
 					await copy(file, dest);
 				}
